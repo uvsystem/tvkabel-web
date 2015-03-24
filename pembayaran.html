@@ -1,0 +1,452 @@
+		  <input type="hidden" id="page" />
+          <div class="panel panel-default">
+		    <div class="panel-heading">Data Pembayaran</div>
+			<div class="panel-body">
+          	  <div class="row placeholders">
+            	<div class="col-xs-6 col-sm-3 placeholder">
+              	  <button class="btn btn-transclute" type="button" data-toggle="modal" data-target="#modal-form-pembayaran">
+              	    <img src="images/add.png" width="50" />
+					<p>
+					  <span class="text-muted">Tambah Pembayaran</span>
+				  	</p>
+              	  </button>
+            	</div>
+            	<div class="col-xs-6 col-sm-3 placeholder">
+              	  <button class="btn btn-transclute" type="button" data-toggle="modal" data-target="#modal-rekap-hari">
+              	    <img src="images/print.png" width="50" />
+              	    <p>
+                      <span class="text-muted">Rekap Harian</span>
+                    </p>
+              	  </button>
+            	</div>
+            	<div class="col-xs-6 col-sm-3 placeholder">
+              	  <button class="btn btn-transclute" type="button" data-toggle="modal" data-target="#modal-rekap-bulan">
+              	    <img src="images/print.png" width="50" />
+              	    <p>
+                      <span class="text-muted">Rekap Bulanan</span>
+                    </p>
+              	  </button>
+            	</div>
+            	<div class="col-xs-6 col-sm-3 placeholder">
+              	  <button class="btn btn-transclute" type="button" data-toggle="modal" data-target="#modal-rekap-tahun">
+              	    <img src="images/print.png" width="50" />
+              	    <p>
+                      <span class="text-muted">Rekap Tahunan</span>
+                    </p>
+              	  </button>
+            	</div>
+
+            	<table class="table"><!-- Bootstrap's table -->
+				  <tr>
+			    	<td width="200">
+					  <select class="selectpicker" id="searchBy">
+					  	<option value="" selected>- Cari Berdasarkan : -</option>
+					   	<option value="kode pegawai">Kode Pegawai</option>
+						<option value="nama pegawai">Nama Pegawai</option>
+					    <option value="kode pelanggan">Kode Pelanggan</option>
+						<option value="nama pelanggan">Nama Pelanggan</option>
+				      </select>
+			    	</td>
+			    	<td width="200">
+					  <input type='text' class="form-control datepicker" id="tanggalAwal" placeholder="  Pilih Tanggal Awal" />
+			    	</td>
+			    	<td width="200">
+        			  <input type='text' class="form-control datepicker" id="tanggalAkhir" placeholder="  Pilih Tanggal Akhir" />
+			    	</td>
+			    	<td>
+			    	  <div class="input-group">
+			      		<input type="text" class="form-control" placeholder="  Masukan Pencarian" id="query">
+			      		<span class="input-group-btn">
+			      		  <button class="btn btn-primary" id="btn-cari-pembayaran">Cari!</button>
+						</span>
+			    	  </div>
+					</td>
+				  </tr>
+				</table>
+
+            	<div class="table-responsive">
+            	  <table class="table table-striped text-center" id="table-pembayaran">
+                	<thead>
+                	  <tr>
+                    	<th class="center">Kode</th>
+                    	<th class="center">Pelanggan</th>
+                    	<th class="center">Pegawai</th>
+                    	<th class="center">Tagihan</th>
+                    	<th class="center">Tanggal Bayar</th>
+                    	<th class="center">Jumlah Bayar</th>
+						<th>&nbsp;</th>
+                	  </tr>
+                	</thead>
+                	<tbody>
+					</tbody>
+            	  </table>
+            	</div>
+            	<table class="table text-center">
+            	  <tr>
+					<td colspan="7">
+				  	  <div class="btn-group btn-group-md">
+				  	  	<button class="btn btn-primary" id="btn-prev">SEBELUMNYA</button>
+				  	  	<button class="btn btn-primary" id="btn-next">SELANJUTNYA</button>
+				  	  </div>
+				  	</td>
+            	  </tr>
+            	</table>
+              </div><!-- row-placeholder -->
+		    </div><!-- panel-body -->
+          </div><!-- panel -->
+		  <div class="modal fade" id="modal-form-pembayaran" role="dialog">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		          <h4 class="modal-title">Form Pembayaran</h4>
+		        </div>
+		        <div class="modal-body">
+		          <form role="form">
+				    <input type="hidden" id="id-pelanggan-form-pembayaran" />
+                    <input type="hidden" id="bulan-form-pembayaran" />
+		            <div class="form-group">
+		              <label for="kode-pelanggan-form-pembayaran" class="control-label">Kode Pelanggan:</label>
+		              <input list="kode_pelanggan" class="form-control" id="kode-pelanggan-form-pembayaran" />
+		            </div>
+		            <div class="form-group">
+		              <label for="nama-pelanggan-form-pembayaran" class="control-label">Nama Pelanggan:</label>
+		              <input list="pelanggan" class="form-control" id="nama-pelanggan-form-pembayaran" />
+		            </div>
+		            <div class="form-group">
+		              <label for="tagihan-pelanggan-form-pembayaran" class="control-label">Tagihan Pelanggan:</label>
+		              <input type="text" class="form-control" id="tagihan-pelanggan-form-pembayaran" readonly />
+		            </div>
+		            <div class="form-group">
+		              <label for="jumlah-bayar-pelanggan-form-pembayaran" class="control-label">Jumlah Pembayaran:</label>
+		              <input type="text" class="form-control" id="jumlah-bayar-pelanggan-form-pembayaran" readonly />
+		            </div>
+		            <div class="form-group">
+		              <label for="jumlah-bulan-pelanggan-form-pembayaran" class="control-label">Jumlah Bulan:</label>
+		              <input type="text" class="form-control" id="jumlah-bulan-pelanggan-form-pembayaran" value="1" />
+		            </div>
+		          </form>
+		        </div><!-- modal-body -->
+		        <div class="modal-footer">
+		          <button class="btn btn-default" id="btn-cancel-form-pembayaran" data-dismiss="modal">Close</button>
+				  <button class="btn btn-primary" id="btn-simpan-form-pembayaran">Simpan</button>
+		        </div>
+		      </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		  </div><!-- /.modal -->
+		  <div class="modal fade" id="modal-detail-pembayaran" role="dialog">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		          <h4 class="modal-title">Detail Pembayaran</h4>
+		        </div>
+		        <div class="modal-body">
+		          <form role="form">
+					<input type="hidden" id="id-detail-pembayaran" />
+		            <div class="form-group">
+		              <label for="kode-referensi-detail-pembayaran" class="control-label">Kode Pembayaran:</label>
+		              <input type="text" class="form-control" id="kode-referensi-detail-pembayaran" readonly />
+		            </div>
+		            <div class="form-group">
+		              <label for="kode-pelanggan-detail-pembayaran" class="control-label">Kode Pelanggan:</label>
+		              <input type="text" class="form-control" id="kode-pelanggan-detail-pembayaran" readonly />
+		            </div>
+		            <div class="form-group">
+		              <label for="nama-pelanggan-detail-pembayaran" class="control-label">Nama Pelanggan:</label>
+		              <input type="text" class="form-control" id="nama-pelanggan-detail-pembayaran" readonly />
+		            </div>
+		            <div class="form-group">
+		              <label for="profesi-pelanggan-detail-pembayaran" class="control-label">Profesi Pelanggan:</label>
+		              <input type="text" class="form-control" id="profesi-pelanggan-detail-pembayaran" readonly />
+		            </div>
+		            <div class="form-group">
+		              <label for="tanggal-bayar-detail-pembayaran" class="control-label">Tanggal Pembayaran:</label>
+		              <input type="text" class="form-control" id="tanggal-bayar-detail-pembayaran" readonly />
+		            </div>
+		            <div class="form-group">
+		              <label for="tagihan-detail-pembayaran" class="control-label">Tagihan:</label>
+		              <input type="text" class="form-control" id="tagihan-detail-pembayaran" readonly />
+		            </div>
+		            <div class="form-group">
+		              <label for="jumlah-bayar-detail-pembayaran" class="control-label">Jumlah Pembayaran:</label>
+		              <input type="text" class="form-control" id="jumlah-bayar-detail-pembayaran" />
+		            </div>
+		          </form>
+		        </div><!-- modal-body -->
+		        <div class="modal-footer">
+		          <button class="btn btn-default" id="btn-cancel-detail-pembayaran" data-dismiss="modal">Close</button>
+				  <button class="btn btn-primary" id="btn-simpan-detail-pembayaran" data-dismiss="modal">Simpan</button>
+		        </div>
+		      </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		  </div><!-- /.modal -->
+		  <div class="modal fade" id="modal-rekap-hari" role="dialog">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		          <h4 class="modal-title">Rekap Pembayaran Menurut Hari</h4>
+		        </div>
+		        <div class="modal-body">
+		          <form role="form" id="form-rekap-hari">
+		            <div class="form-group">
+		              <label for="searchBy" class="control-label">Metode Pencarian:</label>
+					  <select class="form-control" id="search-by-rekap-hari">
+					  	<option value="kode" selected>- Cari Berdasarkan : -</option>
+					   	<option value="kode">Kode Pegawai</option>
+						<option value="nama">Nama Pegawai</option>
+				      </select>
+		            </div>
+		            <div class="form-group">
+		              <label for="tanggal-rekap-hari-awal" class="control-label">Tanggal Awal:</label>
+					  <input type='text' class="form-control datepicker" placeholder="Pilih Tanggal Awal" id="tanggal-rekap-hari-awal"/>
+		            </div>
+		            <div class="form-group">
+		              <label for="tanggal-rekap-hari-akhir" class="control-label">Tanggal Akhir:</label>
+					  <input type='text' class="form-control datepicker" placeholder="Pilih Tanggal Akhir" id="tanggal-rekap-hari-akhir"/>
+		            </div>
+		            <div class="form-group">
+		              <label for="query" class="control-label">Pencarian:</label>
+	  				  <input type="text" class="form-control" placeholder="Masukan Kode Pegawai" id="query-rekap-hari" />
+		            </div>
+		          </form>
+		        </div><!-- modal-body -->
+		        <div class="modal-footer">
+		          <button class="btn btn-default" id="btn-cancel-cetak-hari" data-dismiss="modal">Close</button>
+				  <button class="btn btn-primary" id="btn-ok-rekap-hari">Cetak</button>
+		        </div>
+		      </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		  </div><!-- /.modal -->
+		  <div class="modal fade" id="modal-rekap-bulan" role="dialog">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		          <h4 class="modal-title">Rekap Pembayaran Menurut Bulan</h4>
+		        </div>
+		        <div class="modal-body">
+		          <form role="form" id="form-rekap-bulan">
+		            <div class="form-group">
+		              <label for="bulan-rekap-bulan" class="control-label">Bulan:</label>
+	  				  <select class="form-control" id="bulan-rekap-bulan">
+                            <option value="JANUARY">- Pilih Bulan -</option>
+                            <option value="JANUARY">January</option>
+                            <option value="FEBRUARY">February</option>
+                            <option value="MARCH">Maret</option>
+                            <option value="APRIL">April</option>
+                            <option value="MAY">Mei</option>
+                            <option value="JUNE">Juni</option>
+                            <option value="JULY">Juli</option>
+                            <option value="AUGUST">Agustus</option>
+                            <option value="SEPTEMBER">September</option>
+                            <option value="OCTOBER">Oktober</option>
+                            <option value="NOVEMBER">November</option>
+                            <option value="DECEMBER">Desember</option>
+                      </select>
+		            </div>
+		            <div class="form-group">
+		              <label for="tahun-rekap-bulan" class="control-label">Tahun:</label>
+	  				  <input class="form-control" type="text" placeholder="Masukan Tahun" id="tahun-rekap-bulan" />
+		            </div>
+		          </form>
+		        </div><!-- modal-body -->
+		        <div class="modal-footer">
+		          <button class="btn btn-default" id="btn-cancel-rekap-bulan" data-dismiss="modal">Close</button>
+				  <button class="btn btn-primary" id="btn-ok-rekap-bulan">Cetak</button>
+		        </div>
+		      </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		  </div><!-- /.modal -->
+		  <div class="modal fade" id="modal-rekap-tahun" role="dialog">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		          <h4 class="modal-title">Rekap Pembayaran Menurut Tahun</h4>
+		        </div>
+		        <div class="modal-body">
+		          <form role="form" id="form-rekap-tahun">
+		            <div class="form-group">
+		              <label for="tahun-rekap-tahun" class="control-label">Tahun:</label>
+	  				  <input type="text" class="form-control" placeholder="Masukan Tahun" id="tahun-rekap-tahun" />
+		            </div>
+		          </form>
+		        </div><!-- modal-body -->
+		        <div class="modal-footer">
+		          <button class="btn btn-default" id="btn-cancel-rekap-tahun" data-dismiss="modal">Close</button>
+				  <button class="btn btn-primary" id="btn-ok-rekap-tahun">Cetak</button>
+		        </div>
+		      </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		  </div><!-- /.modal -->
+		  
+  		  <script type="text/javascript">
+          $(document).ready(function () {
+              $('#btn-next').click(function () {
+                  var page = $('#page').val();
+                  page++;
+                  $('#page').val(page);
+                  cariPembayaran();
+              });
+
+              $('#btn-prev').click(function () {
+                  var page = $('#page').val();
+                  page--;
+                  $('#page').val(page);
+                  cariPembayaran();
+              });
+
+              $('#btn-cari-pembayaran').click(function () {
+                  $('#page').val(0);
+                  cariPembayaran();
+              });
+
+              $('#searchBy').change(function () {
+                  var option = $('#searchBy').val();
+                  if (option == 'kode pegawai') {
+                      $('#query').attr('placeholder', 'Masukan Kode Lengkap Pegawai')
+                  } else if (option == 'nama pegawai') {
+                      $('#query').attr('placeholder', 'Masukan Nama Lengkap Pegawai')                      
+                  } else if (option == 'kode pelanggan') {
+                      $('#query').attr('placeholder', 'Masukan Kode Lengkap Pelanggan')
+                  } else if (option == 'nama pelanggan') {
+                      $('#query').attr('placeholder', 'Masukan Nama Lengkap Pelanggan')
+                  }
+              });
+
+              $('#btn-simpan-form-pembayaran').click(function () {
+                  var idPelanggan = $("#id-pelanggan-form-pembayaran").val();
+
+                  if (idPelanggan != 0) {
+                      var jumlahPembayaran = $("#jumlah-bayar-pelanggan-form-pembayaran").val();
+                      var jumlahBulan = $("#jumlah-bulan-pelanggan-form-pembayaran").val();
+                      var bulan = $('#bulan-form-pembayaran').val();
+                      var data = {
+                          idPelanggan: idPelanggan,
+                          idPegawai: getOperator().id,
+                          jumlahPembayaran: jumlahPembayaran,
+                          jumlahBulan: jumlahBulan
+                      };
+                      savePembayaran(data, function (result) {
+                          if (result.message === 'Berhasil!') {
+                              var partMessage = constructPartMessage(bulan, jumlahBulan);
+                              alert('Berhasil Menyimpan Pembayaran untuk bulan ' + partMessage);
+                              loadTagihanById(idPelanggan, usePromiseTagihan, errorMessage);
+                          } else {
+                              alert(result.message);
+                          }
+                      }, errorMessage);
+                  } else {
+                      alert("Silahkan Pilih Pelanggan!");
+                  }
+              });
+
+              $('#btn-simpan-detail-pembayaran').click(function () {
+                  var data = {
+                      id: $("#id-detail-pembayaran").val(),
+                      idPegawai: getOperator().id,
+                      jumlahPembayaran: $("#jumlah-bayar-detail-pembayaran").val()
+                  };
+
+                  updatePembayaran(data, function (result) {
+                      if (result.message === 'Berhasil!') {
+                          alert('Berhasil Mengubah Detail Pembayaran');
+                      } else {
+                          alert(result.message);
+                      }
+                      cariPembayaran();
+                  }, errorMessage);
+              });
+
+              $('#btn-tagihan-rekap-bulan').click(function () {
+                  $('#jenis-rekap-bulan').val('tagihan');
+                  $('#btn-tagihan-rekap-bulan').addClass('btn-success').removeClass('btn-default');
+                  $('#btn-pembayaran-rekap-bulan').addClass('btn-default').removeClass('btn-success');
+              })
+
+              $('#btn-pembayaran-rekap-bulan').click(function () {
+                  $('#jenis-rekap-bulan').val('tgl_bayar')
+                  $('#btn-pembayaran-rekap-bulan').addClass('btn-success').removeClass('btn-default');
+                  $('#btn-tagihan-rekap-bulan').addClass('btn-default').removeClass('btn-success');
+              })
+
+              $("#kode-pelanggan-form-pembayaran").change(function () {
+                  var kode = $("#kode-pelanggan-form-pembayaran").val();
+                  loadPelangganByKode(kode, usePromisePelanggan, errorMessage);
+                  loadTagihanByKode(kode, usePromiseTagihan, errorMessage);
+              });
+
+              $("#nama-pelanggan-form-pembayaran").change(function () {
+                  var nama = $("#nama-pelanggan-form-pembayaran").val();
+                  loadPelangganByNama(nama, usePromisePelanggan, errorMessage);
+                  loadTagihanByNama(nama, usePromiseTagihan, errorMessage);
+              });
+
+              $('#btn-ok-rekap-hari').click(function () {
+                  var searchBy = $('#search-by-rekap-hari').val();
+                  var tanggalAwal = $('#tanggal-rekap-hari-awal').val();
+                  var tanggalAkhir = $('#tanggal-rekap-hari-akhir').val();
+                  var query = $('#query-rekap-hari').val();
+                  var data = {
+                      idPerusahaan: getIdPerusahaan(),
+                      tanggalAwal: tanggalAwal,
+                      tanggalAkhir: tanggalAkhir,
+                      searchBy: searchBy,
+                      query: query
+                  };
+
+                  myApp.showPleaseWait();
+                  rekapHari(data);
+              });
+
+              $('#search-by-rekap-hari').change(function () {
+                  var option = $('#search-by-rekap-hari').val();
+                  if (option == 'kode') {
+                      $('#query-rekap-hari').attr('placeholder', 'Masukan Kode Pegawai');
+                  } else if (option == 'nama') {
+                      $('#query-rekap-hari').attr('placeholder', 'Masukan Nama Lengkap Pegawai');
+                  }
+              });
+
+              $('#btn-ok-rekap-bulan').click(function () {
+                  var bulan = $('#bulan-rekap-bulan').val();
+                  var tahun = $('#tahun-rekap-bulan').val();
+                  var data = {
+                      idPerusahaan: getIdPerusahaan(),
+                      bulan: bulan,
+                      tahun: tahun
+                  };
+
+                  myApp.showPleaseWait();
+                  rekapBulan(data);
+              });
+
+              $('#btn-ok-rekap-tahun').click(function () {
+                  var tahun = $('#tahun-rekap-tahun').val();
+                  var data = {
+                      idPerusahaan: getIdPerusahaan(),
+                      tahun: tahun
+                  };
+
+                  myApp.showPleaseWait();
+                  rekapTahun(data);
+              });
+
+              $(function () {
+                  $('.selectpicker').selectpicker();
+              });
+
+              $(function () {
+                  $('.selectpicker').selectpicker({
+                      style: 'btn-info',
+                      size: 7
+                  });
+              });
+
+              $(function () {
+                  $('.datepicker').datepicker();
+              });
+          });
+	      </script>

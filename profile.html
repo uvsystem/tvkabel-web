@@ -1,0 +1,204 @@
+          <div class="panel panel-default">
+		    <div class="panel-heading">Detail Pegawai</div>
+			<div class="panel-body">
+			  <input id="id" type="hidden" />
+			  <input id="kode" type="hidden" />
+			  <input id="status" type="hidden" />
+			  <input id="latitude" type="hidden" />
+			  <input id="longitude" type="hidden" />
+				<table class="table"><!-- Bootstrap's table -->
+				  <tr>
+				    <td>Nama Tv Kabel</td>
+				    <td colspan="2">
+				      <input id="nama" type="text" class="form-control" />
+				    </td>
+				  </tr>
+				  <tr>
+				    <td>Nama PT</td>
+				    <td colspan="2">
+				      <input id="nama-pt" type="text" class="form-control" />
+				    </td>
+				  </tr>
+				  <tr>
+				    <td>Kota</td>
+				    <td colspan="2">
+				      <select id="namaKota" class="form-control">
+                        <option value="0">- Pilih Kota -</option>
+                      </select>
+				    </td>
+				  </tr>
+				  <tr>
+				    <td>Kecamatan</td>
+				    <td colspan="2">
+				      <select id="namaKecamatan" class="form-control">
+                        <option value="0">- Pilih Kecamatan -</option>
+                      </select>
+				    </td>
+				  </tr>
+				  <tr>
+				    <td>Kelurahan</td>
+				    <td colspan="2">
+				      <select id="namaKelurahan" class="form-control">
+                        <option value="0">- Pilih Kelurahan -</option>
+                      </select>
+				    </td>
+				  </tr>
+				  <tr>
+				    <td>Telepon</td>
+				    <td colspan="2">
+				      <input id="telepon" type="text" class="form-control" />
+				    </td>
+				  </tr>
+				  <tr>
+				    <td>Handphone</td>
+				    <td colspan="2">
+				      <input id="hp" type="text" class="form-control" />
+				    </td>
+				  </tr>
+				  <tr>
+				    <td>Email</td>
+				    <td colspan="2">
+				      <input id="email" type="email" class="form-control" />
+				    </td>
+				  </tr>
+				  <tr>
+				    <td colspan="3">&nbsp;</td>
+				  </tr>
+				  <tr>
+				    <td>Iuran</td>
+				    <td>
+				      <input id="iuran" type="text" class="form-control" readonly="readonly" />
+				    </td>
+				    <td><b>/ Data Pembayaran</b></td>
+				  </tr>
+				  <tr>
+				    <td>Total Tagihan</td>
+				    <td colspan="2">
+				      <input type="text" class="form-control" readonly="readonly" />
+				    </td>
+				  </tr>
+				  <tr>
+				    <td>&nbsp;</td>
+				    <td colspan="2">
+					  <button class="btn btn-transclute" id="btn-simpan-perusahaan">
+              	    	<img src="images/save.png" width="30" />
+						Simpan
+					  </button>
+				    </td>
+				  </tr>
+				</table>
+		    </div>
+          </div>
+
+		  <script type="text/javascript">
+        $(document).ready(function () {
+            var perusahaan = getPerusahaan();
+            $('#id').val(perusahaan.id);
+            $('#kode').val(perusahaan.kode);
+            $('#nama').val(perusahaan.nama);
+            $('#nama-pt').val(perusahaan.namaPT);
+            $('#telepon').val(perusahaan.telepon);
+            $('#hp').val(perusahaan.hp);
+            $('#email').val(perusahaan.email);
+            $('#iuran').val(numberWithCommas(perusahaan.iuran));
+            $('#latitude').val(perusahaan.latitude);
+            $('#longitude').val(perusahaan.longitude);
+            $('#status').val(perusahaan.status);
+
+            var kotaVar = $('#namaKota')[0];
+            var kecamatanVar = $('#namaKecamatan')[0];
+            var kelurahanVar = $('#namaKelurahan')[0];
+
+            loadKotaByAjax(kotaVar);
+            loadKecamatanByAjax(kecamatanVar, perusahaan.idKota);
+            loadKelurahanByAjax(kelurahanVar, perusahaan.idKecamatan);
+
+            setOption(perusahaan.idKota, perusahaan.namaKota, kotaVar, true);
+            setOption(perusahaan.idKecamatan, perusahaan.namaKecamatan, kecamatanVar, true);
+            setOption(perusahaan.idKelurahan, perusahaan.namaKelurahan, kelurahanVar, true);
+
+            $('#btn-simpan-perusahaan').click(function () {
+                var id = $('#id').val();
+                var kode = $('#kode').val();
+                var nama = $('#nama').val();
+                var namaPT = $('#nama-pt').val();
+
+                var kota = $('#namaKota option:selected');
+                var idKota = kota.val();
+                var namaKota = kota.text();
+
+                var kecamatan = $('#namaKecamatan option:selected');
+                var idKecamatan = kecamatan.val();
+                var namaKecamatan = kecamatan.text();
+
+                var kelurahan = $('#namaKelurahan option:selected');
+                var idKelurahan = kelurahan.val();
+                var namaKelurahan = kelurahan.text();
+
+                var latitude = $('#latitude').val();
+                var longitude = $('#longitude').val();
+
+                var telepon = $('#telepon').val();
+                var hp = $('#hp').val();
+                var email = $('#email').val();
+                var iuran = $('#iuran').val();
+                var status = $('#status').val();
+
+                var data = {
+                    id: id,
+                    kode: kode,
+                    nama: nama,
+                    namaPT: namaPT,
+                    idKota: idKota,
+                    namaKota: namaKota,
+                    idKecamatan: idKecamatan,
+                    namaKecamatan: namaKecamatan,
+                    idKelurahan: idKelurahan,
+                    namaKelurahan: namaKelurahan,
+                    lingkungan: 0,
+                    detailAlamat: '',
+                    latitude: latitude,
+                    longitude: longitude,
+                    telepon: telepon,
+                    hp: hp,
+                    email: email,
+                    iuran: iuran.replace(',', ''),
+                    status: status
+                }
+
+                var success = function (result) {
+                    if (result.message === 'Berhasil!') {
+                        alert('Berhasil Menyimpan Data Perusahaan!\nData akan berubah pada sesi login berikutnya');
+                    } else {
+                        alert(result.message);
+                    }
+                }
+
+                savePerusahaan(data, success, errorMessage);
+            });
+            $('#namaKota').change(function () {
+                var idKota = $('#namaKota').val();
+                var success = function (result) {
+                    var list = result.listModel;
+                    var namaKecamatan = document.getElementById('namaKecamatan');
+                    setOptions(list, namaKecamatan);
+                };
+
+                if (idKota != 0) {
+                    loadListKecamatanByKota(idKota, success, errorMessage);
+                }
+            });
+            $('#namaKecamatan').change(function () {
+                var idKecamatan = $('#namaKecamatan').val();
+                var success = function (result) {
+                    var list = result.listModel;
+                    var namaKelurahan = document.getElementById('namaKelurahan');
+                    setOptions(list, namaKelurahan);
+                };
+
+                if (idKecamatan != 0) {
+                    loadListKelurahanByKecamatan(idKecamatan, success, errorMessage);
+                }
+            });
+        });
+		  </script>

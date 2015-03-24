@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Bootstrap's CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Cover's CSS -->
+	<link rel="stylesheet" href="css/cover.css">
+    <!-- Cover's CSS -->
+	<link rel="stylesheet" href="css/unitedvision-site.css">
+ 
+	<!-- jQuery Library -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Bootstrap's JS -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Doc's JS -->
+    <script src="js/docs.min.js"></script>
+
+    <!-- UnitedVision's JS -->
+    <script src="js/unitedvision.js"></script>
+    <!-- UnitedVision's site JS -->
+    <script src="js/unitedvision-site.js"></script>
+
+    <title>UnitedVision</title>
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">UnitedVision</h3>
+              <ul class="nav masthead-nav">
+                <li><a id="link-login" href="#" data-toggle="modal" data-target="#modal-login">Login</a></li>
+                <li><a id="link-daftar" href="#" data-toggle="modal" data-target="#modal-daftar">Daftar</a></li>
+                <li><a id="link-kontak" href="#" data-toggle="modal" data-target="#modal-kontak">Kontak</a></li>
+              </ul>
+            </div>
+          </div>
+		  <div id="content"></div>
+          <div class="mastfoot">
+            <div class="inner">
+              <p>UnitedVision. 2014</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+	<div class="modal fade" id="modal-login" role="dialog">
+	  <div class="modal-dialog  modal-cover">
+		<div class="modal-content modal-cover">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Tutup</span></button>
+		    <h4 class="modal-title">Login</h4>
+		  </div>
+		  <div class="modal-body modal-cover">
+		    <form name="f" id="form-login">
+		      <fieldset>
+                <label for="username" class="control-label">Username:</label>
+		        <input type="text" class="form-control" id="username" placeholder="Masukan Username" />
+		        <br />
+                <label for="password" class="control-label">Password:</label>
+		        <input type="password" class="form-control" id="password" placeholder="Masukan Password"/>
+		        <br />
+		      </fieldset>
+		    </form>
+		  </div><!-- modal-body -->
+		  <div class="modal-footer">
+		    <button class="btn btn-default" id="btn-cancel-login" data-dismiss="modal">Tutup</button>
+		    <button class="btn btn-default" id="btn-ok-login" data-dismiss="modal" form="form-login">Login</button>
+		  </div>
+		</div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<div class="modal fade" id="modal-daftar" role="dialog">
+	  <div class="modal-dialog">
+		<div class="modal-content modal-cover">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Tutup</span></button>
+		    <h4 class="modal-title">Daftar</h4>
+		  </div>
+		  <div class="modal-body">
+		    <form name="f" id="form-daftar">
+		      <fieldset>
+                <label for="nama" class="control-label">Nama:</label>
+	    	    <input id="nama" type="text" placeholder="Nama Perusahaan" class="form-control" /><br />
+                <label for="nama-kota" class="control-label">Nama Kota:</label>
+		        <select id="nama-kota" class="form-control">
+                    <option value="0">- Pilih Kota -</option>
+                </select><br />
+                <label for="nama-kecamatan" class="control-label">Kecamatan:</label>
+		   	    <select id="nama-kecamatan" class="form-control">
+                       <option value="0">- Pilih Kecamatan -</option>
+                </select><br />
+                <label for="nama-kelurahan" class="control-label">Kelurahan:</label>
+		        <select id="nama-kelurahan" class="form-control">
+                    <option value="0">- Pilih Kelurahan -</option>
+                </select><br />
+                <label for="telepon" class="control-label">Telepon:</label>
+		        <input id="telepon" type="text" placeholder="Nomor Telepon" class="form-control" /><br />
+                <label for="hp" class="control-label">Ponsel:</label>
+		        <input id="hp" type="text" placeholder="Nomor Seluler" class="form-control" /><br />
+                <label for="email" class="control-label">Email:</label>
+			    <input id="email" type="email" placeholder="Email" class="form-control" /><br />
+		      </fieldset>
+		    </form>
+		  </div><!-- modal-body -->
+		  <div class="modal-footer">
+		    <button class="btn btn-default" id="btn-cancel-daftar" data-dismiss="modal">Tutup</button>
+		    <button class="btn btn-default" id="btn-ok-daftar" data-dismiss="modal">Daftar</button>
+		  </div>
+		</div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<div class="modal fade" id="modal-kontak" role="dialog">
+	  <div class="modal-dialog">
+		<div class="modal-content modal-cover">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Tutup</span></button>
+		    <h4 class="modal-title">Kontak</h4>
+		  </div>
+		  <div class="modal-body">
+            <p class="lead">
+              Untuk informasi lebih lanjut silahkan menghubungi:<br />
+              Email : dkakunsi.unitedvision@gmail.com<br />
+              Facebook : UnitedVision
+            </p>
+		  </div><!-- modal-body -->
+		  <div class="modal-footer">
+		    <button class="btn btn-default" id="btn-cancel-kontak" data-dismiss="modal">Tutup</button>
+		  </div>
+		</div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<div class="modal fade" id="modal-loading" role="dialog">
+	  <div class="modal-dialog">
+		<div class="modal-content modal-cover">
+		  <div class="modal-header">
+		    <h4 class="modal-title">Loading</h4>
+		  </div>
+		  <div class="modal-body">
+              Loading ...
+		  </div><!-- modal-body -->
+		  <div class="modal-footer">
+		  </div>
+		</div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<script type="text/javascript">
+     $(document).ready(function () {
+         if (isLogin()) {
+             window.location.href = 'dashboard.html';
+         }
+         $('#btn-ok-daftar').click(function () {
+             var nama = $('#nama').val();
+             var kota = $('#nama-kota option:selected');
+             var idKota = kota.val();
+             var namaKota = kota.text();
+
+             var kecamatan = $('#nama-kecamatan option:selected');
+             var idKecamatan = kecamatan.val();
+             var namaKecamatan = kecamatan.text();
+
+             var kelurahan = $('#nama-kelurahan option:selected');
+             var idKelurahan = kelurahan.val();
+             var namaKelurahan = kelurahan.text();
+
+             var telepon = $('#telepon').val();
+             var hp = $('#hp').val();
+             var email = $('#email').val();
+             var data = {
+				 kode: 'new',
+                 nama: nama,
+                 idKota: idKota,
+                 namaKota: namaKota,
+                 idKecamatan: idKecamatan,
+                 namaKecamatan: namaKecamatan,
+                 idKelurahan: idKelurahan,
+                 namaKelurahan: namaKelurahan,
+                 lingkungan: 0,
+                 detailAlamat: '',
+                 latitude: 1.502444,
+                 longitude: 124.915389,
+                 telepon: telepon,
+                 hp: hp,
+                 email: email,
+                 iuran: 1000,
+                 status: 'AKTIF'
+             };
+             var success = function (result) {
+                 if (result.message === 'Berhasil!') {
+                     alert('Registrasi Berhasil! Silahkan login menggunakan : USERNAME = "' + email + '" dan PASSWORD = "admin"');
+                 } else {
+                     alert(result.message);
+                 }
+             };
+             registrasiPerusahaan(data, success, errorMessage);
+         });
+         $('#btn-ok-login').click(function () {
+             var username = $('#username').val();
+             var password = $('#password').val();
+             login(username, password);
+         });
+         $('#link-daftar').click(function () {
+             var success = function (result) {
+                 var list = result.listModel;
+                 var namaKota = document.getElementById('nama-kota');
+                 setOptions(list, namaKota);
+             };
+             loadAllKota(success, errorMessage);
+         });
+         $('#nama-kota').change(function () {
+             var idKota = $('#nama-kota').val();
+             var success = function (result) {
+                 var list = result.listModel;
+                 var namaKecamatan = document.getElementById('nama-kecamatan');
+                 setOptions(list, namaKecamatan);
+             };
+
+             if (idKota != 0) {
+                 loadListKecamatanByKota(idKota, success, errorMessage);
+             }
+         });
+         $('#nama-kecamatan').change(function () {
+             var idKecamatan = $('#nama-kecamatan').val();
+             var success = function (result) {
+                 var list = result.listModel;
+                 var namaKelurahan = document.getElementById('nama-kelurahan');
+                 setOptions(list, namaKelurahan);
+             };
+
+             if (idKecamatan != 0) {
+                 loadListKelurahanByKecamatan(idKecamatan, success, errorMessage);
+             }
+         });
+     });
+	</script>
+  </body>
+</html>

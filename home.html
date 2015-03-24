@@ -1,0 +1,162 @@
+          <div class="panel panel-default">
+		    <div class="panel-heading">Rangkuman Data Perusahaan</div>
+			<div class="panel-body">
+			  <div class="row">
+          	    <div class="col-md-6">
+          	      <table class="table">
+          	        <thead>
+          	        <tr>
+          	          <th class="center" colspan="3">
+          	    	    <h4>Jumlah Pelanggan</h4>
+          	          </th>
+          	          <td colspan="2">&nbsp;</td>
+          	        </tr>
+          	        </thead>
+          	        <tbody>
+          	        <tr>
+          	          <td width="200">Pelanggan Aktif</td>
+          	          <td width="10">:</td>
+          	          <td>
+          	            <b id="jumlah-pelanggan-aktif"></b> pelanggan
+          	          </td>
+          	        </tr>
+          	        <tr>
+          	          <td>Pelanggan Berhenti</td>
+          	          <td>:</td>
+          	          <td>
+          	            <b id="jumlah-pelanggan-berhenti"></b> pelanggan
+          	          </td>
+          	        </tr>
+          	        <tr>
+          	          <td>Pelanggan Putus</td>
+          	          <td>:</td>
+          	          <td>
+          	            <b id="jumlah-pelanggan-putus"></b> pelanggan
+          	          </td>
+          	        </tr>
+          	        </tbody>
+          	      </table>
+          	    </div>
+          	    <div class="col-md-6">
+          	      <table class="table">
+          	        <thead>
+          	        <tr>
+          	          <th class="center" colspan="3">
+          	            <h4>Estimasi Pemasukan</h4>
+          	          </th>
+          	        </tr>
+          	        </thead>
+          	        <tbody>
+          	        <tr>
+          	          <td width="250">Estimasi Pemasukan Bulanan</td>
+          	          <td width="10">:</td>
+          	          <td>
+          	            Rp <b id="estimasi-pemasukan-bulanan"></b>
+          	          </td>
+          	        </tr>
+          	        <tr>
+          	          <td>Pemasukan Bulan Berjalan</td>
+          	          <td>:</td>
+          	          <td>
+          	            Rp <b id="pemasukan-bulan-berjalan"></b>
+          	          </td>
+          	        </tr>
+          	        <tr>
+          	          <td>Total Akumulasi Tunggakan</td>
+          	          <td>:</td>
+          	          <td>
+          	            Rp <b id="total-akumulasi-tunggakan"></b>
+          	          </td>
+          	        </tr>
+          	        </tbody>
+          	      </table>
+          	    </div>
+          	  </div><!-- row -->
+          	  <div class="row">
+          	    <div class="col-md-6">
+          	      <table class="table">
+          	        <thead>
+          	        <tr>
+          	          <th class="center" colspan="3">
+          	    	    <h4>Jumlah Pembayaran Pelanggan</h4>
+          	          </th>
+          	        </tr>
+          	        </thead>
+          	        <tbody>
+          	        <tr>
+          	          <td width="200">Lunas</td>
+          	          <td width="10">:</td>
+          	          <td>
+          	            <b id="jumlah-pelanggan-lunas"></b> pelanggan
+          	          </td>
+          	        </tr>
+          	        <tr>
+          	          <td>Menunggak Wajar (1 Bulan)</td>
+          	          <td>:</td>
+          	          <td>
+          	            <b id="jmlah-pelanggan-menunggak-wajar"></b> pelanggan
+          	          </td>
+          	        </tr>
+          	        <tr>
+          	          <td>Menunggak Tak Wajar</td>
+          	          <td>:</td>
+          	          <td>
+          	            <b id="jumlah-pelanggan-menunggak-tak-wajar"></b> pelanggan
+          	          </td>
+          	        </tr>
+          	        </tbody>
+          	      </table>
+          	    </div>
+          	    <div class="col-md-6">
+          	      <table class="table">
+          	        <thead>
+          	        <tr>
+          	          <th class="center" colspan="3">
+          	            <h4>Estimasi Pengeluaran</h4>
+          	          </th>
+          	        </tr>
+          	        </thead>
+          	        <tbody>
+          	        <tr>
+          	          <td width="250">Estimasi Tagihan Bulanan</td>
+          	          <td width="10">:</td>
+          	          <td>
+          	            Rp <b id="estimasi-tagihan-bulanan"></b>
+          	          </td>
+          	        </tr>
+          	        <tr>
+          	          <td>Pengeluaran Bulan Berjalan</td>
+          	          <td>:</td>
+          	          <td>
+          	            Rp <b id="tagihan-bulan-berjalan"></b>
+          	          </td>
+          	        </tr>
+          	        </tbody>
+          	      </table>
+          	    </div>
+          	  </div><!-- row -->
+		    </div><!-- panel-body -->
+          </div><!-- panel -->
+          <script type="text/javascript">
+              $(document).ready(function () {
+                  var onSuccess = function (result) {
+                      var rekap = result.rekap;
+
+                      $('#jumlah-pelanggan-aktif').html(numberWithCommas(rekap.jumlahPelangganAktif));
+                      $('#jumlah-pelanggan-berhenti').html(numberWithCommas(rekap.jumlahPelangganBerhenti));
+                      $('#jumlah-pelanggan-putus').html(numberWithCommas(rekap.jumlahPelangganPutus));
+          	          $('#estimasi-pemasukan-bulanan').html(numberWithCommas(rekap.estimasiPemasukanBulanan));
+                      $('#pemasukan-bulan-berjalan').html(numberWithCommas(rekap.pemasukanBulanBerjalan));
+                      $('#total-akumulasi-tunggakan').html(numberWithCommas(rekap.totalAkumulasiTunggakan));
+                      $('#jumlah-pelanggan-lunas').html(numberWithCommas(rekap.jumlahPelangganLunas));
+                      $('#jmlah-pelanggan-menunggak-wajar').html(numberWithCommas(rekap.jumlahPelangganMenunggakWajar));
+                      $('#jumlah-pelanggan-menunggak-tak-wajar').html(numberWithCommas(rekap.jumlahPelangganMenunggakTakWajar));
+                      $('#estimasi-tagihan-bulanan').html(numberWithCommas(rekap.estimasiTagihanBulanan));
+                      $('#tagihan-bulan-berjalan').html(numberWithCommas(rekap.tagihanBulanBerjalan));
+
+                      myApp.hidePleaseWait();
+                  };
+
+                  loadRekapPerusahaan(onSuccess, errorMessage);
+              });
+          </script>

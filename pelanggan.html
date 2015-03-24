@@ -1,0 +1,577 @@
+		  <input type="hidden" id="page" />
+          <div class="panel panel-default">
+		    <div class="panel-heading">Data Pelanggan</div>
+			<div class="panel-body">
+          	  <div class="row placeholders">
+            	<div class="col-xs-6 col-sm-3 placeholder">
+              	  <button id="btn-tambah-pelanggan" class="btn btn-transclute" data-toggle="modal" data-target="#modal-detail-pelanggan">
+              	    <img src="images/add.png" width="50" />
+					<p>
+					  <span class="text-muted">Tambah Pelanggan</span>
+				  	</p>
+              	  </button>
+            	</div>
+            	<div class="col-xs-6 col-sm-3 placeholder">
+              	  <button class="btn btn-transclute" data-toggle="modal" data-target="#modal-rekap-alamat" id="btn-rekap-alamat">
+              	    <img src="images/print.png" width="50" />
+              	    <p>
+                      <span class="text-muted">Rekap Pelanggan</span>
+					</p>
+              	  </button>
+            	</div>
+            	<div class="col-xs-6 col-sm-3 placeholder">
+              	  <button class="btn btn-transclute" data-toggle="modal" data-target="#modal-rekap-tunggakan">
+              	    <img src="images/print.png" width="50" />
+              	    <p>
+                      <span class="text-muted">Rekap Tunggakan</span>
+                    </p>
+              	  </button>
+            	</div>
+            	<div class="col-xs-6 col-sm-3 placeholder">
+              	  <button class="btn btn-transclute" data-toggle="modal" data-target="#modal-kartu-pelanggan">
+              	    <img src="images/print.png" width="50" />
+              	    <p>
+                      <span class="text-muted">Kartu Pelanggan</span>
+                    </p>
+              	  </button>
+            	</div>
+
+            	<table class="table"><!-- class="table" defined in Bootstrap CSS -->
+			  	  <tr>
+			    	<td width="200">
+				  	  <select class="selectpicker" name="searchBy" id="searchBy">
+						<option value="" selected>- Cari Berdasarkan : -</option>
+						<option value="kode">Kode</option>
+						<option value="nama">Nama</option>
+						<option value="nomor">Nomor Buku</option>
+					  </select>
+			    	</td>
+			    	<td width="200">
+					  <select class="selectpicker" name="status" id="status">
+						<option value="" selected>- Pilih Status : -</option>
+						<option value="aktif">Aktif</option>
+						<option value="berhenti">Berhenti (Permintaan Pelanggan)</option>
+						<option value="putus">Putus (Menunggak)</option>
+						<option value="gratis">Gratis</option>
+					  </select>
+			    	</td>
+			    	<td>
+		      		  <div class="input-group">
+		        		<input type="text" class="form-control" placeholder="  Masukan Pencarian" id="txt-query">
+		        		<span class="input-group-btn">
+		          		  <button class="btn btn-primary" id="btn-cari">Cari!</button>
+		      			</span>
+		        	  </div>
+			    	</td>
+				  </tr>
+				</table>
+            	<div class="table-responsive">
+            	  <table class="table table-striped text-center" id="table-pelanggan">
+                	<thead>
+                	  <tr>
+                    	<th class="center">Kode</th>
+                    	<th class="center">Nomor</th>
+                    	<th class="center">Nama</th>
+                    	<th class="center">Status</th>
+                    	<th class="center" colspan="2">Tunggakan</th>
+                    	<th>&nbsp;</th>
+                    	<th>&nbsp;</th>
+                    	<th>&nbsp;</th>
+                	  </tr>
+                	</thead>
+                	<tbody>
+                	</tbody>
+            	  </table>
+            	</div>
+            	<table class="table text-center">
+            	  <tr>
+					<td colspan="8">
+				  	  <div class="btn-group btn-group-md">
+				  	  	<button class="btn btn-primary" id="btn-prev">SEBELUMNYA</button>
+				  	  	<button class="btn btn-primary" id="btn-next">SELANJUTNYA</button>
+				  	  </div>
+				  	</td>
+            	  </tr>
+            	</table>
+              </div><!-- row-placeholder -->
+		    </div><!-- panel-body -->
+          </div><!-- panel -->
+		  <div class="modal fade" id="modal-detail-pelanggan" role="dialog">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <h4 class="modal-title">Data Pelanggan</h4>
+		        </div>
+		        <div class="modal-body">
+		          <form role="form">
+	    			<input type="hidden" id="id-detail-pelanggan" value="0" />
+	    			<input type="hidden" id="tunggakan-detail-pelanggan" value="0" />
+	    			<input type="hidden" id="status-detail-pelanggan" value="AKTIF" />
+	    			<input type="hidden" id="id-pembayaran-terakhir-detail-pelanggan" />
+		            <div class="form-group">
+		              <label for="kode-detail-pelanggan" class="control-label">Kode Pelanggan:</label>
+		              <input type="text" class="form-control" id="kode-detail-pelanggan" />
+		            </div>
+		            <div class="form-group">
+		              <label for="nomor-detail-pelanggan" class="control-label">Nomor Pelanggan:</label>
+		              <input type="text" class="form-control" id="nomor-detail-pelanggan" />
+		            </div>
+		            <div class="form-group">
+		              <label for="nama-detail-pelanggan" class="control-label">Nama Pelanggan:</label>
+		              <input type="text" class="form-control" id="nama-detail-pelanggan" />
+		            </div>
+		            <div class="form-group">
+		              <label for="profesi-detail-pelanggan" class="control-label">Profesi Pelanggan:</label>
+		              <input type="text" class="form-control" id="profesi-detail-pelanggan" />
+		            </div>
+		            <div class="form-group">
+		              <label for="nama-kota-detail-pelanggan" class="control-label">Kota (Alamat):</label>
+				      <select class="form-control" id="nama-kota-detail-pelanggan">
+                          <option value="0">- Pilih Kota -</option>
+                      </select>
+		            </div>
+		            <div class="form-group">
+		              <label for="nama-kecamatan-detail-pelanggan" class="control-label">Kecamatan(Alamat):</label>
+				      <select class="form-control" id="nama-kecamatan-detail-pelanggan">
+                          <option value="0">- Pilih Kecamatan -</option>
+                      </select>
+		            </div>
+		            <div class="form-group">
+		              <label for="nama-kelurahan-detail-pelanggan" class="control-label">Kelurahan(Alamat):</label>
+				      <select class="form-control" id="nama-kelurahan-detail-pelanggan">
+                          <option value="0">- Pilih Kelurahan -</option>
+                      </select>
+		            </div>
+		            <div class="form-group">
+		              <label for="lingkungan-detail-pelanggan" class="control-label">Lingkungan (Alamat):</label>
+		              <input type="text" class="form-control" id="lingkungan-detail-pelanggan" />
+		            </div>
+		            <div class="form-group">
+		              <label for="keterangan-detail-pelanggan" class="control-label">Keterangan (Alamat):</label>
+		              <input type="text" class="form-control" id="keterangan-detail-pelanggan" />
+		            </div>
+		            <div class="form-group">
+		              <label for="telepon-detail-pelanggan" class="control-label">Nomor Telepon:</label>
+		              <input type="text" class="form-control" id="telepon-detail-pelanggan" />
+		            </div>
+		            <div class="form-group">
+		              <label for="hp-detail-pelanggan" class="control-label">Nomor Ponsel:</label>
+		              <input type="text" class="form-control" id="hp-detail-pelanggan" />
+		            </div>
+		            <div class="form-group">
+		              <label for="email-detail-pelanggan" class="control-label">Alamat Email:</label>
+		              <input type="text" class="form-control" id="email-detail-pelanggan" />
+		            </div>
+		            <div class="form-group">
+		              <label for="tanggal-mulai-detail-pelanggan" class="control-label">Tanggal Mulai:</label>
+					  <input type="text" class="form-control datepicker" id="tanggal-mulai-detail-pelanggan" />
+		            </div>
+		            <div class="form-group">
+		              <label for="jumlah-tv-detail-pelanggan" class="control-label">Jumlah Tv:</label>
+		              <input type="text" class="form-control" id="jumlah-tv-detail-pelanggan" />
+		            </div>
+		            <div class="form-group">
+		              <label for="iuran-detail-pelanggan" class="control-label">Iuran Bulanan:</label>
+		              <input type="text" class="form-control" id="iuran-detail-pelanggan" />
+		            </div>
+		          </form>
+		        </div><!-- modal-body -->
+		        <div class="modal-footer">
+		          <button class="btn btn-default" id="btn-cancel-pelanggan" data-dismiss="modal">Close</button>
+				  <button class="btn btn-primary" id="btn-simpan-pelanggan" data-dismiss="modal">Simpan</button>
+		        </div>
+		      </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		  </div><!-- /.modal -->
+		  <div class="modal fade" id="modal-rekap-alamat" role="dialog">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <h4 class="modal-title">Rekap Pelanggan</h4>
+		        </div>
+		        <div class="modal-body">
+		          <form id="form-rekap-alamat" role="form">
+			            <div class="form-group">
+			              <label for="status-rekap-alamat" class="control-label">Status Pelanggan:</label>
+					      <select class="form-control" id="status-rekap-alamat">
+						    <option value="aktif" selected>- Pilih Status : -</option>
+						    <option value="aktif">Aktif</option>
+						    <option value="berhenti">Berhenti (Permintaan Pelanggan)</option>
+						    <option value="putus">Putus (Menunggak)</option>
+						    <option value="gratis">Gratis</option>
+					      </select>
+			            </div>
+			            <div class="form-group">
+			              <label for="kelurahan-rekap" class="control-label">Kelurahan (Alamat):</label>
+						  <select class="form-control" id="kelurahan-rekap">
+                              <option value="">- Pilih Kelurahan -</option>
+                          </select>
+			            </div>
+			            <div class="form-group">
+			              <label for="lingkungan-rekap" class="control-label">Lingkungan (Alamat):</label>
+					      <input class="form-control" id="lingkungan-rekap" placeholder="Masukan Lingkungan Dalam Angka" />
+			            </div>
+		          </form>
+		        </div><!-- modal-body -->
+		        <div class="modal-footer">
+		          <button class="btn btn-default" id="btn-cancel-rekap-alamat" data-dismiss="modal">Close</button>
+				  <button class="btn btn-primary" id="btn-cetak-rekap-alamat">Cetak</button>
+		        </div>
+		      </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		  </div><!-- /.modal -->
+		  <div class="modal fade" id="modal-rekap-tunggakan" role="dialog">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <h4 class="modal-title">Rekap Tunggakan</h4>
+		        </div>
+		        <div class="modal-body">
+		          <form id="form-rekap-tunggakan" role="form">
+		            <div class="form-group">
+		              <label for="status-rekap-tunggakan" class="control-label">Status Pelanggan:</label>
+					  <select class="selectpicker" id="status-rekap-tunggakan">
+						<option value="aktif" selected>- Pilih Status : -</option>
+						<option value="aktif">Aktif</option>
+						<option value="berhenti">Berhenti (Permintaan Pelanggan)</option>
+						<option value="putus">Putus (Menunggak)</option>
+						<option value="gratis">Gratis</option>
+					  </select>
+		            </div>
+		            <div class="form-group">
+		              <label for="tunggakan-rekap-awal" class="control-label">Dari:</label>
+	  			<input class="form-control" id="tunggakan-rekap-awal" placeholder="Masukan Tunggakan Awal"/>
+		            </div>
+		            <div class="form-group">
+		              <label for="tunggakan-rekap-akhir" class="control-label">Sampai:</label>
+	  			<input class="form-control" id="tunggakan-rekap-akhir" placeholder="Masukan Tunggakan Akhir" />
+		            </div>
+		          </form>
+		        </div><!-- modal-body -->
+		        <div class="modal-footer">
+		          <button class="btn btn-default" id="btn-cancel-rekap-tunggakan" data-dismiss="modal">Close</button>
+				<button class="btn btn-primary" id="btn-cetak-rekap-tunggakan">Cetak</button>
+		        </div>
+		      </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		  </div><!-- /.modal -->
+		  <div class="modal fade" id="modal-kartu-pelanggan" role="dialog">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <h4 class="modal-title">Cetak Kartu Pelanggan</h4>
+		        </div>
+		        <div class="modal-body">
+		          <form id="form-cetak-kartu-pelanggan" role="form">
+		            <div class="form-group">
+		              <label for="btn-opt-pembayaran" class="control-label">Menyertakan Daftar Pembayaran ?</label>
+					  <input type="hidden" id="pembayaran-kartu" value="false" />
+					  <div class="btn-group " id="btn-opt-pembayaran">
+						<button type="button" class="btn btn-default" id="btn-include">Ya</button>
+						<button type="button" class="btn btn-success" id="btn-exclude">Tidak</button>
+					  </div>
+		            </div>
+		            <div class="form-group">
+		              <label for="searchBy" class="control-label">Metode Pencarian:</label>
+					  <select class="form-control" id="search-by-kartu">
+				    	<option value="kode">- Cari Berdasarkan : -</option>
+				    	<option value="kode">Kode Pelanggan</option>
+						<option value="nama">Nama Pelanggan</option>
+                        <!--
+						<option value="nomor">Nomor Pelanggan</option>
+                        -->
+			    	  </select>
+		            </div>
+		            <div class="form-group">
+		              <label for="tahun-kartu" class="control-label">Tahun:</label>
+	  				  <input type="text" class="form-control" placeholder=" Masukan Tahun" id="tahun-kartu" />
+		            </div>
+		            <div class="form-group">
+		              <label for="query-kartu" class="control-label">Kriteria Pencarian:</label>
+	  				  <input type="text" class="form-control" placeholder=" Masukan Kode Pelanggan" id="query-kartu" />
+		            </div>
+		          </form>
+		        </div><!-- modal-body -->
+		        <div class="modal-footer">
+		          <button class="btn btn-default" id="btn-cancel-kartu-pelanggan" data-dismiss="modal">Close</button>
+		      	  <button class="btn btn-primary" id="btn-cetak-kartu-pelanggan">Cetak!</button>
+		        </div>
+		      </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		  </div><!-- /.modal -->
+		  <div class="modal fade" id="modal-ubah-tunggakan" role="dialog">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <h4 class="modal-title">Ubah Tunggakan Pelanggan Secara Manual</h4>
+		        </div>
+		        <div class="modal-body">
+		          <form role="form">
+			        <input type="hidden" id="id-pelanggan-ubah-tunggakan" />
+		            <div class="form-group">
+		              <label for="kode-pelanggam-ubah-tunggakan" class="control-label">Kode Pelanggan:</label>
+	  				  <input class="form-control" id="kode-pelanggan-ubah-tunggakan" readonly />
+		            </div>
+		            <div class="form-group">
+		              <label for="nama-pelanggan-ubah-tunggakan" class="control-label">Nama Pelanggan:</label>
+	  				  <input class="form-control" id="nama-pelanggan-ubah-tunggakan" readonly />
+		            </div>
+		            <div class="form-group">
+		              <label for="tunggakan-pelanggan-ubah-tunggakan" class="control-label">Tunggakan Pelanggan:</label>
+	  				  <input class="form-control" id="tunggakan-pelanggan-ubah-tunggakan" />
+		            </div>
+		          </form>
+		        </div><!-- modal-body -->
+		        <div class="modal-footer">
+		          <button class="btn btn-default" id="btn-cancel-ubah-tunggakan" data-dismiss="modal">Close</button>
+				  <button class="btn btn-primary" id="btn-ok-ubah-tunggakan" data-dismiss="modal">Simpan</button>
+		        </div>
+		      </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		  </div><!-- /.modal -->
+		  <div class="modal fade" id="modal-ubah-status" role="dialog">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <h4 class="modal-title">Ubah Status Pelanggan</h4>
+		        </div>
+		        <div class="modal-body">
+		          <form role="form">
+		            <input type="hidden" id="id-pelanggan-ubah-status" />
+		            <div class="form-group">
+					  <div class="btn-group btn-group-md" id="ubah-status">
+						<button type="button" class="btn btn-warning" id="btn-aktifkan-pelanggan" data-dismiss="modal">Aktifkan</button>
+						<button type="button" class="btn btn-warning" id="btn-berhentikan-pelanggan" data-dismiss="modal">Berhentikan</button>
+						<button type="button" class="btn btn-warning" id="btn-putuskan-pelanggan" data-dismiss="modal">Putuskan</button>
+						<button type="button" class="btn btn-warning" id="btn-gratiskan-pelanggan" data-dismiss="modal">Gratiskan</button>
+					  </div>
+		            </div>
+		          </form>
+		        </div><!-- modal-body -->
+		        <div class="modal-footer">
+		          <button class="btn btn-default" id="btn-cancel-ubah-status" data-dismiss="modal">Close</button>
+		        </div>
+		      </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		  </div><!-- /.modal -->
+
+	  <script type="text/javascript">
+       $(document).ready(function () {
+           $('#btn-next').click(function () {
+               var page = $('#page').val();
+               page++;
+               $('#page').val(page);
+               cariPelanggan();
+           });
+
+           $('#btn-prev').click(function () {
+               var page = $('#page').val();
+               page--;
+               $('#page').val(page);
+               cariPelanggan();
+           });
+
+           $('#btn-cari').click(function () {
+               $('#page').val(0);
+               resetPelangganDetail();
+               cariPelanggan();
+           });
+
+           $('#searchBy').change(function () {
+               var option = $('#searchBy').val();
+               if (option == 'kode') {
+                   $('#txt-query').attr('placeholder', 'Masukan Kode Pelanggan')
+               } else if (option == 'nama') {
+                   $('#txt-query').attr('placeholder', 'Masukan Nama Pelanggan')
+               } else if (option == 'nomor') {
+                   $('#txt-query').attr('placeholder', 'Masukan Nomor Pelanggan')
+               }
+           });
+
+           $('#btn-include').click(function () {
+               $('#btn-include').addClass('btn-success').removeClass('btn-default');
+               $('#btn-exclude').addClass('btn-default').removeClass('btn-success');
+
+               $('#pembayaran-kartu').val(true);
+           });
+
+           $('#btn-exclude').click(function () {
+               $('#btn-exclude').addClass('btn-success').removeClass('btn-default');
+               $('#btn-include').addClass('btn-default').removeClass('btn-success');
+
+               $('#pembayaran-kartu').val(false);
+           });
+
+           $('#btn-ok-ubah-tunggakan').click(function () {
+               var id = $('#id-pelanggan-ubah-tunggakan').val();
+               var tunggakan = $('#tunggakan-pelanggan-ubah-tunggakan').val();
+
+               updateTunggakan(id, tunggakan, function (result) {
+                   if (result.message === 'Berhasil!') {
+                       resetFormUbahTunggakan();
+                       alert('Berhasil Mengubah Tunggakan Pelanggan!');
+                   } else {
+                       alert(result.message);
+                   }
+                   cariPelanggan();
+               }, errorMessage);
+           });
+
+           $('#btn-cancel-pelanggan').click(function () {
+               resetPelangganDetail();
+           });
+
+           $('#btn-simpan-pelanggan').click(function () {
+               var kota = $('#nama-kota-detail-pelanggan option:selected');
+               var kecamatan = $('#nama-kecamatan-detail-pelanggan option:selected');
+               var kelurahan = $('#nama-kelurahan-detail-pelanggan option:selected');
+               var data = {
+                   id: $('#id-detail-pelanggan').val(),
+                   kode: $('#kode-detail-pelanggan').val(),
+                   nomorBuku: $('#nomor-detail-pelanggan').val(),
+                   nama: $('#nama-detail-pelanggan').val(),
+                   tunggakan: $('#tunggakan-detail-pelanggan').val(),
+                   status: $('#status-detail-pelanggan').val(),
+                   profesi: $('#profesi-detail-pelanggan').val(),
+                   idKota: kota.val(),
+                   namaKota: kota.text(),
+                   idKecamatan: kecamatan.val(),
+                   namaKecamatan: kecamatan.text(),
+                   idKelurahan: kelurahan.val(),
+                   namaKelurahan: kelurahan.text(),
+                   lingkungan: $('#lingkungan-detail-pelanggan').val(),
+                   detailAlamat: $('#keterangan-detail-pelanggan').val(),
+                   telepon: $('#telepon-detail-pelanggan').val(),
+                   hp: $('#hp-detail-pelanggan').val(),
+                   email: $('#email-detail-pelanggan').val(),
+                   tanggalMulaiStr: $('#tanggal-mulai-detail-pelanggan').val(),
+                   jumlahTv: $('#jumlah-tv-detail-pelanggan').val(),
+                   iuran: $('#iuran-detail-pelanggan').val(),
+                   idPembayaranTerakhir: $('#id-pembayaran-terakhir-detail-pelanggan').val()
+               };
+
+               savePelanggan(data, function (result) {
+                   if (result.message === 'Berhasil!') {
+                       resetPelangganDetail();
+                       alert('Berhasil Menyimpan Pelanggan!');
+                   } else {
+                       alert(result.message);
+                   }
+                   cariPelanggan();
+               }, errorMessage);
+           });
+
+           $('#btn-aktifkan-pelanggan').click(function () {
+               var idPelanggan = $('#id-pelanggan-ubah-status').val();
+               aktifkan(idPelanggan);
+           });
+
+           $('#btn-berhentikan-pelanggan').click(function () {
+               var idPelanggan = $('#id-pelanggan-ubah-status').val();
+               berhentikan(idPelanggan);
+           });
+
+           $('#btn-putuskan-pelanggan').click(function () {
+               var idPelanggan = $('#id-pelanggan-ubah-status').val();
+               putuskan(idPelanggan);
+           });
+
+           $('#btn-gratiskan-pelanggan').click(function () {
+               var idPelanggan = $('#id-pelanggan-ubah-status').val();
+               gratiskan(idPelanggan);
+           });
+
+           $('#btn-cetak-rekap-alamat').click(function () {
+               var kelurahan = $('#kelurahan-rekap').val();
+               var lingkungan = $('#lingkungan-rekap').val();
+               var status = $('#status-rekap-alamat').val();
+               var data = {
+                   idPerusahaan: getIdPerusahaan(),
+                   status: status,
+                   kelurahan: kelurahan,
+                   lingkungan: lingkungan
+               };
+	
+               myApp.showPleaseWait();
+               rekapAlamat(data);
+           });
+
+           $('#btn-cetak-rekap-tunggakan').click(function () {
+               var tunggakanAwal = $('#tunggakan-rekap-awal').val();
+               var tunggakanAkhir = $('#tunggakan-rekap-akhir').val();
+               var status = $('#status-rekap-tunggakan').val();
+               var data = {
+                   idPerusahaan: getIdPerusahaan(),
+                   status: status,
+                   tunggakanAwal: tunggakanAwal,
+		   tunggakanAkhir: tunggakanAkhir
+               };
+
+               myApp.showPleaseWait();
+               rekapTunggakan(data);
+           });
+
+           $('#btn-cetak-kartu-pelanggan').click(function () {
+               var searchBy = $('#search-by-kartu').val();
+               var pembayaran = $('#pembayaran-kartu').val();
+               var query = $('#query-kartu').val();
+               var tahun = $('#tahun-kartu').val();
+               var data = {
+                   idPerusahaan: getIdPerusahaan(),
+                   pembayaran: pembayaran,
+                   searchBy: searchBy,
+                   query: query,
+                   tahun: tahun
+               };
+
+               myApp.showPleaseWait();
+               kartuPelanggan(data);
+           });
+
+           $('#search-by-kartu').change(function () {
+               var option = $('#search-by-kartu').val();
+               if (option == 'kode') {
+                   $('#query-kartu').attr('placeholder', 'Masukan Kode Pelanggan')
+               } else if (option == 'nama') {
+                   $('#query-kartu').attr('placeholder', 'Masukan Nama Lengkap Pelanggan')
+               }
+           });
+
+           $('#btn-tambah-pelanggan').click(function () {
+               var kotaVar = $('#nama-kota-detail-pelanggan')[0];
+               loadKotaByAjax(kotaVar);
+           });
+           $('#nama-kota-detail-pelanggan').change(function () {
+               var kecamatanVar = $('#nama-kecamatan-detail-pelanggan')[0];
+               loadKecamatanByAjax(kecamatanVar, $('#nama-kota-detail-pelanggan').val());
+           });
+           $('#nama-kecamatan-detail-pelanggan').change(function () {
+               var kelurahanVar = $('#nama-kelurahan-detail-pelanggan')[0];
+               loadKelurahanByAjax(kelurahanVar, $('#nama-kecamatan-detail-pelanggan').val());
+           });
+           $('#btn-rekap-alamat').click(function () {
+               //var idKecamatan = getPerusahaan().idKecamatan;
+
+               var successLoadKelurahan = function (result) {
+                   setOptions(result.listModel, $('#kelurahan-rekap')[0], 'text');
+               };
+               //loadListKelurahanByKecamatan(idKecamatan, successLoadKelurahan, errorMessage);
+               loadAllKelurahan(successLoadKelurahan, errorMessage);
+           });
+
+           $(function () {
+               $('.selectpicker').selectpicker();
+           });
+
+           $(function () {
+               $('.selectpicker').selectpicker({
+                   style: 'btn-info',
+                   size: 100
+               });
+           });
+
+           $(function () {
+               $('.datepicker').datepicker();
+           });
+       });
+	  </script>

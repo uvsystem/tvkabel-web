@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="js/jquery.min.js"></script>
+    <!-- UnitedVision's JS -->
+    <script src="js/unitedvision.js"></script>
+    <!-- UnitedVision's site JS -->
+    <script src="js/unitedvision-site.js"></script>
+	<script type="text/javascript">
+     $(document).ready(function () {
+         if ((isLogin()) && (getOperator().role == 'OWNER')) {
+             window.location.href = 'dashboard.html';
+         } else {
+             window.location.href = 'login.html';
+         }
+     });
+	</script>
+
+    <title>UnitedVision</title>
+  </head>
+</html>
