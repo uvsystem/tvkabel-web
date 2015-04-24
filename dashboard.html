@@ -76,7 +76,9 @@
          if (!isLogin()) {
              window.location.href = 'login.html';
          }
-         loadPage('home');
+
+         currentPage = 'home';
+         loadPage();
 
          $('#link-home').click(function () {
              currentPage = 'home';
