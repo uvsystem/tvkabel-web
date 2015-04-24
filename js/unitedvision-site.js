@@ -103,7 +103,13 @@ var setOptions = function (list, parent, state) {
 };
 
 var resetOptions = function (parent) {
-    var selectedText = parent.options[parent.selectedIndex].text;
+	
+	var selectedOption = parent.options[parent.selectedIndex];
+	
+	if ( !selectedOption )
+		return '- Pilih -';
+	
+    var selectedText = selectedOption.text;
     deleteOption(parent);
     
     return selectedText;
